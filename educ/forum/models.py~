@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-class Professor(User): #professor
+class Professor(User): //professor
     cin = models.IntegerField()
 
 class Classroom(models.Model):
