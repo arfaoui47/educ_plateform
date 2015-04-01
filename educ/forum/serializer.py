@@ -13,24 +13,19 @@ class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
         ordering = ['score' , 'username']
-        fields = ('id', 'username', 'first_name', 'last_name', 'posts', 'score')
+        fields = ('id', 'username', 'first_name', 'last_name', 'score')
 
 
 class ForumPostSerializer(serializers.ModelSerializer):
-    student = StudentSerializer(required=False)
-    def get_validation_exclusions(self):
-        # Need to exclude `author` since we'll add that later based off the request
-        exclusions = super(ForumPostSerializer, self).get_validation_exclusions()
-        return exclusions + ['student']
 
     class Meta:
         model = ForumPost
         ordering = ['approval' , 'date']
         fields = ('id', 'contents', 'hashtags', 'statment', 'student', 'approval', 'date')
 
-class Forum_CommentSerializer(serializers.ModelSerializer):
+class ForumCommentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ForumComment
         ordering = ['appreciation', 'date']
-        fields = ('id', 'contents', 'user', 'profile_post', 'date', 'appreciation')
+        fields = ('id', 'contents', 'user', 'forumpost', 'date', 'appreciation')
