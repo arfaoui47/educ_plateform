@@ -27,12 +27,12 @@
             <div class="viewpost">
                 <div ng-repeat="post in posts" class="post">
                      <div class="innerpost">
-                     //post.student // <br> // post.contents//      <button ng-click="delPost(post)" >Delete</button> <br> //post.hashtags// <br>
+                     //post.student // <br> // post.contents// <br> //post.hashtags// <br>
                      <textarea name="contents" ng-model="currentComment.contents[post.id]" placeholder="add comment"></textarea><br>
                      <button ng-click="saveComment(post)">save</button>
                      <!--<pre>currentComment : // currentComment | json // </pre>-->
                     <ul>
-                        <li ng-repeat="comment in comments | filter: {forumpost:post.id}"> // comment.contents// <button ng-click="delComment(comment)" >Delete</button></li>
+                        <li ng-repeat="comment in comments | filter: {forumpost:post.id}"> // comment.contents// </li>
                     </ul>
                     </div>
                 </div>

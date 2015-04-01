@@ -66,22 +66,19 @@ forum.controller('PostCtrl', function PostCtrl($scope, $log, $http, ModelUtils){
     $scope.loadComment();
     $scope.currentPost = {};
     $scope.currentComment = {};
-    $scope.currentStudent = {};
     //$scope.errors = {};
 
     $scope.savePost = function(){
-        $scope.currentPost.student = 3; // the user_id (temporally)
+        $scope.currentPost.student = 1;
         ModelUtils.save('/api-auth/post/', $scope.currentPost).then(function(){
             $scope.loadPost();
             $scope.currentPost = {};
         });
     };
     $scope.delPost = function(post){
-        if(post.student == 1) { //test for the user_id (temporally)
-            ModelUtils.del('/api-auth/post/', post).then(function () {
-                $scope.loadPost();
-            });
-        }
+        ModelUtils.del('/api-auth/post/',post).then(function(){
+           $scope.loadPost();
+        });
     };
 
     $scope.saveComment = function(post){
@@ -93,9 +90,7 @@ forum.controller('PostCtrl', function PostCtrl($scope, $log, $http, ModelUtils){
             $scope.currentComment = {};
         });
     };
-    $scope.delComment = function(comment){
-        ModelUtils.del('/api-auth/comment/',comment).then(function(){
-           $scope.loadComment();
-        });
-    };
+
+
+
 });
