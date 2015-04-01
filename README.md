@@ -1,5 +1,4 @@
 # educ_plateform
 
 Developed by:
-  Haithem Abdelli '\n'
-  Atef Arfaoui
+  Haithem Abdelli---Atef Arfaoui
