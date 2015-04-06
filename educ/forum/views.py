@@ -32,7 +32,6 @@ class ForumPostDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 class ForumCommentList(generics.ListCreateAPIView):
-
     model = ForumComment
     queryset = ForumComment.objects.all()
     serializer_class = ForumCommentSerializer
@@ -42,12 +41,10 @@ class ForumCommentList(generics.ListCreateAPIView):
 
 
 class ForumCommentDetail(generics.RetrieveUpdateDestroyAPIView):
-
     model = ForumComment
     queryset = ForumComment.objects.all()
     serializer_class = ForumCommentSerializer
     permission_classes = [
         permissions.AllowAny
     ]
-
 

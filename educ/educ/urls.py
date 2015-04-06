@@ -15,4 +15,3 @@ urlpatterns = patterns('',
     url(r'^api-auth/comment/$', ForumCommentList.as_view(), name='forumcomment-list'),
     url(r'^api-auth/comment/(?P<pk>\d+)/$', ForumCommentDetail.as_view(), name='forumcomment-detail'),
 )
-
