@@ -1,7 +1,18 @@
 {% extends "base.html" %}
+{% load staticfiles %}
+
+{% block includes_js %}
+        <script src="{% static "js/forum.js" %}"></script>
+{% endblock %}
+
+{% block includes_css %}
+        <script src="{% static "css/forum.css" %}"></script>
+{% endblock %}
+
+
 {% block content %}
     <div class="container">
-    <div ng-app="forum">
+    <div>
         <div ng-controller="PostCtrl" ng-init="initialize('ready man')">
             <h1 style="text-align:center">Forum</h1>
 
@@ -9,7 +20,6 @@
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             New Post
-
                         </div>
                         <div class="panel-body">
                             <form>
@@ -64,21 +74,11 @@
                                 </div>
                             </div>
                         </div>
-
-
-                        <div class="panel-footer">
-
-                        </div>
                     </div>
                  </div>
-
-
-            <!--<pre>currentPost : // currentPost | json // </pre>
-            <pre>posts : // posts  // </pre>-->
-
         </div>
     </div>
-            </div>
+    </div>
 
 {% endblock %}
 

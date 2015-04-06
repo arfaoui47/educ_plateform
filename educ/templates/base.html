@@ -2,18 +2,21 @@
 <!DOCTYPE html>
 
 <head>
+
     <title>forum</title>
-    <link rel="stylesheet" href="{% static "css/forum.css" %}" >
     <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}" >
     <link rel="stylesheet" href="{% static "css/bootstrap-theme.min.css" %}" >
     <script src="{% static "js/angular.min.js" %}"></script>
     <script src="{% static "js/angular-cookies.js" %}"></script>
     <script src="{% static "js/ui-bootstrap-tpls-0.12.1.min" %}"></script>
-    <script src="{% static "js/forum.js" %}"></script>
+    <script src="{% static "js/crud.js" %}"></script>
+
+    {% block includes_js %}{% endblock %}
+    {% block includes_css %}{% endblock %}
 
 </head>
 
-<body>
+<body ng-app="educ">
 {% block content %}
 {% endblock %}
 </body>
