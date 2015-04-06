@@ -93,6 +93,17 @@ forum.controller('PostCtrl', function PostCtrl($scope, $log, $http, ModelUtils){
             $scope.currentComment = {};
         });
     };
+
+    $scope.updateComment = function(post, comment){
+        $scope.currentComment.user = 1;
+        $scope.currentComment.forumpost = post.id;
+        $scope.currentComment.id = comment.id;
+        $scope.currentComment.contents = $scope.currentComment.contents[comment.id];
+        ModelUtils.save('/api-auth/comment/', $scope.currentComment).then(function(){
+            $scope.loadComment();
+            $scope.currentComment = {};
+        });
+    };
     $scope.delComment = function(comment){
         ModelUtils.del('/api-auth/comment/',comment).then(function(){
            $scope.loadComment();
