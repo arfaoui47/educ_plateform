@@ -70,7 +70,7 @@ forum.controller('PostCtrl', function PostCtrl($scope, $log, $http, ModelUtils){
     //$scope.errors = {};
 
     $scope.savePost = function(){
-        $scope.currentPost.student = 3; // the user_id (temporally)
+        $scope.currentPost.student = 1; // the user_id (temporally)
         ModelUtils.save('/api-auth/post/', $scope.currentPost).then(function(){
             $scope.loadPost();
             $scope.currentPost = {};

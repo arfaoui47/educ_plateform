@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container">
+    <div ng-app="forum">
+        <div ng-controller="PostCtrl" ng-init="initialize('ready man')">
+            <h1 style="text-align:center">Forum</h1>
+
+                <div class="col-lg-8 col-md-offset-2">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            New Post
+
+                        </div>
+                        <div class="panel-body">
+                            <form>
+                                  <textarea class="form-control" row=3 style="height:100px" name="contents" ng-model="currentPost.contents" placeholder="new Post" ></textarea><br>
+                                 <input class="form-control" row=2 type="text" name="hashtags" ng-model="currentPost.hashtags" placeholder="#hashtags"/>
+                             </form>
+                        </div>
+                        <div class="panel-footer">
+                            <button class="btn btn-sm btn-primary" ng-click="savePost()">save</button>
+                        </div>
+                    </div>
+                 </div>
+
+                 <div class="col-lg-8 col-md-offset-2">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            View Posts
+                        </div>
+                        <div class="panel-body">
+                            <div ng-repeat="post in posts" class="row">
+
+                                <div class="col-lg-1"><span class="glyphicon glyphicon-saved glyphicon-lg" aria-hidden="true"></span>
+                                </div>
+                                <div class="col-lg-11 ">
+                                     <div class="panel panel-default">
+                                     <div class="panel-heading">
+                                       Posted By : //post.student //
+                                         <button ng-click="delPost(post)" clqss="pull-right">Delete</button>
+                                       </div>
+                                      <div class="panel-body">
+                                        // post.contents//<br>
+                                        hashtags : //post.hashtags//
+                                      </div>
+                                     <div class="panel-footer">
+                                     <div class="row" >
+                                         <div class="col-lg-10">
+                                         <textarea rows="1" class="form-control"  name="contents" ng-model="currentComment.contents[post.id]" placeholder="add comment">
+                                         </textarea>
+                                         </div>
+                                         <div class="col-lg-1">
+                                         <button class="btn btn-primary btn-lg"  ng-click="saveComment(post)">save</button>
+                                         </div>
+                                     </div>
+                                     </div>
+                                </div>
+                                     <div  ng-repeat="comment in comments | filter: {forumpost:post.id}" >
+                                         <button ng-click="delComment(comment)" >Delete</button>
+                                         <pre>// comment.contents// </pre>
+
+                                     </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="panel-footer">
+
+                        </div>
+                    </div>
+                 </div>
+
+
+            <!--<pre>currentPost : // currentPost | json // </pre>
+            <pre>posts : // posts  // </pre>-->
+
+        </div>
+    </div>
+            </div>
+
+{% endblock %}
+
