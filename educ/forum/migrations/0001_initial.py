@@ -14,11 +14,49 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
+            name='AdministratorDocs',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(max_length=50)),
+                ('subject', models.CharField(max_length=50)),
+                ('file', models.CharField(max_length=50)),
+                ('target', models.CharField(max_length=50)),
+                ('date', models.DateTimeField(auto_now_add=True)),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Calendar',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('contents', models.TextField()),
+                ('datebegin', models.DateTimeField()),
+                ('dateend', models.DateTimeField()),
+                ('club', models.CharField(max_length=50)),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
             name='Classroom',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('class_name', models.CharField(max_length=50)),
                 ('year', models.IntegerField()),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Club',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(max_length=50)),
+                ('position', models.CharField(max_length=50)),
             ],
             options={
             },
@@ -51,6 +89,44 @@ class Migration(migrations.Migration):
             bases=(models.Model,),
         ),
         migrations.CreateModel(
+            name='MailBox',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('contents', models.TextField()),
+                ('sender', models.CharField(max_length=50)),
+                ('subject', models.CharField(max_length=50)),
+                ('date', models.DateTimeField(auto_now_add=True)),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Note',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('note', models.IntegerField()),
+                ('subject', models.CharField(max_length=50)),
+                ('statement', models.CharField(max_length=50)),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Notification',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('contents', models.TextField()),
+                ('link', models.CharField(max_length=50)),
+                ('statement', models.BooleanField(default=0)),
+                ('date', models.DateTimeField(auto_now_add=True)),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
             name='Professor',
             fields=[
                 ('user_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL)),
@@ -64,6 +140,59 @@ class Migration(migrations.Migration):
             bases=('auth.user',),
         ),
         migrations.CreateModel(
+            name='ProfessorDocs',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(max_length=50)),
+                ('file', models.CharField(max_length=50)),
+                ('year', models.IntegerField()),
+                ('type', models.CharField(max_length=50)),
+                ('subject', models.CharField(max_length=50)),
+                ('date', models.DateTimeField(auto_now_add=True)),
+                ('professor', models.ForeignKey(to='forum.Professor')),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='ProfileComment',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('contents', models.TextField()),
+                ('date', models.DateTimeField(auto_now_add=True)),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='ProfilePost',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('contents', models.TextField()),
+                ('hashtags', models.TextField()),
+                ('statment', models.CharField(default=b'public', max_length=50)),
+                ('approval', models.IntegerField(default=0)),
+                ('date', models.DateTimeField(auto_now_add=True)),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Reclamation',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('contents', models.TextField()),
+                ('subject', models.CharField(max_length=50)),
+                ('date', models.DateTimeField(auto_now_add=True)),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
             name='Student',
             fields=[
                 ('user_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL)),
@@ -73,7 +202,7 @@ class Migration(migrations.Migration):
                 ('interest', models.TextField(blank=True)),
                 ('about', models.TextField(blank=True)),
                 ('projects', models.TextField(blank=True)),
-                ('classroom', models.ForeignKey(related_name='students', to='forum.Classroom')),
+                ('classroom', models.ForeignKey(to='forum.Classroom')),
             ],
             options={
                 'abstract': False,
@@ -83,27 +212,99 @@ class Migration(migrations.Migration):
             bases=('auth.user',),
         ),
         migrations.AddField(
+            model_name='reclamation',
+            name='sender',
+            field=models.ForeignKey(to=settings.AUTH_USER_MODEL),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='profilepost',
+            name='student',
+            field=models.ForeignKey(to='forum.Student'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='profilecomment',
+            name='profilepost',
+            field=models.ForeignKey(to='forum.ProfilePost'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='profilecomment',
+            name='student',
+            field=models.ForeignKey(to='forum.Student'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='notification',
+            name='user',
+            field=models.ForeignKey(to=settings.AUTH_USER_MODEL),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='note',
+            name='professor',
+            field=models.ForeignKey(to='forum.Professor'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='note',
+            name='student',
+            field=models.ForeignKey(to='forum.Student'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='mailbox',
+            name='adresser',
+            field=models.ForeignKey(to=settings.AUTH_USER_MODEL),
+            preserve_default=True,
+        ),
+        migrations.AddField(
             model_name='forumpost',
             name='student',
-            field=models.ForeignKey(related_name='forum_posts', to='forum.Student'),
+            field=models.ForeignKey(to='forum.Student'),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='forumcomment',
-            name='profile_post',
-            field=models.ForeignKey(related_name='forum_post_comments', to='forum.ForumPost'),
+            name='forumpost',
+            field=models.ForeignKey(to='forum.ForumPost'),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='forumcomment',
             name='user',
-            field=models.ForeignKey(related_name='forum_user_comments', to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(to=settings.AUTH_USER_MODEL),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='club',
+            name='student',
+            field=models.ForeignKey(to='forum.Student'),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='classroom',
             name='professor',
-            field=models.ForeignKey(related_name='classrooms', to='forum.Professor'),
+            field=models.ForeignKey(to='forum.Professor'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='calendar',
+            name='classroom',
+            field=models.ForeignKey(to='forum.Classroom'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='calendar',
+            name='professor',
+            field=models.ForeignKey(to='forum.Professor'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='calendar',
+            name='student',
+            field=models.ForeignKey(to='forum.Student'),
             preserve_default=True,
         ),
     ]

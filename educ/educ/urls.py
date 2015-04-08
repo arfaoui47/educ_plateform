@@ -1,6 +1,9 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
+from partage.views import *
 from forum.views import *
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = patterns('',
     # Examples:
@@ -14,4 +17,6 @@ urlpatterns = patterns('',
     url(r'^api-auth/post/(?P<pk>\d+)/$', ForumPostDetail.as_view(), name='forumpost-detail'),
     url(r'^api-auth/comment/$', ForumCommentList.as_view(), name='forumcomment-list'),
     url(r'^api-auth/comment/(?P<pk>\d+)/$', ForumCommentDetail.as_view(), name='forumcomment-detail'),
+    url(r'^upload$', Partage.as_view(), name='partage'),
+
 )

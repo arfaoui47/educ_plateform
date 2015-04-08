@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block includes_js %}
+    <script src="{% static "partage/js/partage.js" %}"></script>
+{% endblock %}
+
+{% block includes_css %}
+    <script src="{% static "partage/css/partage.css" %}"></script>
+{% endblock %}
+
+
+{% block content %}
+<div ng-app="partage">
+    <div ng-controller="AppController">
+        <input type="file" nv-file-select uploader="uploader"/><br/>
+        <ul>
+            <li ng-repeat="item in uploader.queue">
+                Name: <span ng-bind="item.file.name"></span><br/>
+                <button ng-click="item.upload()">upload</button>
+            </li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

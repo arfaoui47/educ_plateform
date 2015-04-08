@@ -6,7 +6,7 @@ from .serializer import *
 
 
 class Forum(TemplateView):
-    template_name = 'forum.html'
+    template_name = 'forum/forum.html'
 
     def get_context_data(self, **kwargs):
         context = super(Forum, self).get_context_data(**kwargs)

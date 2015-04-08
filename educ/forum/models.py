@@ -85,7 +85,7 @@ class Club(models.Model):
 
 class ProfessorDocs(models.Model):
     name = models.CharField(max_length=50)
-    file = models.CharField(max_length=50)
+    file = models.FileField(upload_to='uploads/')
     year = models.IntegerField()
     type = models.CharField(max_length=50)
     subject = models.CharField(max_length=50)
