@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block includes_js %}
+   <!-- <script src="{% static "js/login.js" %}"></script>-->
+{% endblock %}
+
+{% block includes_css %}
+
+{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        {% if form.errors %}
+            <p class="error">sorry invalid</p>
+        {% endif %}
+
+        <form action="auth/" method="post">{% csrf_token %}
+            <label for="username">User name:</label>
+            <input type="text" name="username" balue="" id="username"/>
+            <label for="password">Password:</label>
+            <input type="password" name="password" balue="" id="password"/>
+
+            <input type="submit" value="login"/>
+        </form>
+    </div>
+
+{% endblock %}
+

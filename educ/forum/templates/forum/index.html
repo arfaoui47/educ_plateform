@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block includes_js %}
+
+{% endblock %}
+
+{% block includes_css %}
+
+{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+
+            <h1 style="text-align:center">hello {% if user %}  {{ user.username }} {%  else %} visitor {% endif %} in the Forum</h1>
+            {% if user.cin %} this is professor {% else %} {% if user.reg_number %} this is student {% else %} this is undefined user {% endif%} {% endif %}
+            {{ request.session.user_type }}
+    </div>
+
+{% endblock %}
+
+
+
+

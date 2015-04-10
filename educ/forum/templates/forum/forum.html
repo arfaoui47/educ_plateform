@@ -14,12 +14,12 @@
     <div class="container">
     <div>
         <div ng-controller="PostCtrl" ng-init="initialize('ready man')">
-            <h1 style="text-align:center">Forum</h1>
-
+            <h1 style="text-align:center">Forum | {{ user.username }}</h1>
+                {% if user.reg_number %}
                 <div class="col-lg-8 col-md-offset-2">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            New Post
+                            <p>New Post</p>
                         </div>
                         <div class="panel-body">
                             <form>
@@ -28,26 +28,32 @@
                              </form>
                         </div>
                         <div class="panel-footer">
-                            <button class="btn btn-sm btn-primary" ng-click="savePost()">save</button>
+                            <button class="btn btn-sm btn-primary" ng-click="savePost({{ user.id }})">save</button>
                         </div>
                     </div>
                  </div>
-
+                {%  endif %}
                  <div class="col-lg-8 col-md-offset-2">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             View Posts
                         </div>
                         <div class="panel-body">
-                            <div class="posts" ng-repeat="post in posts" class="row">
+                            <div class="posts" ng-repeat="post in posts|orderBy: ['statment','-approval','-date'] " class="row">
+                                <div class="col-lg-1">
+                                    <span class="btn glyphicon glyphicon-saved glyphicon-lg" style="color:darkgray; font-size: 3em " aria-hidden="true" ng-if="notsolved(post)" ng-click="solve(post, {{ user.id }})"></span>
+                                    <span class="btn glyphicon glyphicon-saved glyphicon-lg" style="color:green; font-size: 3em " aria-hidden="true" ng-if="solved(post)" ng-click="solve(post, {{ user.id }})"></span>
+                                    <span class="btn glyphicon glyphicon-chevron-up glyphicon-lg" style="color:#ffff00; font-size: 2em " aria-hidden="true"  ng-click="upprovalup(post, {{ user.id }})"></span>
+                                    <p style="font-size: 2em; text-align:right">// post.approval // </p>
+                                    <span class="btn glyphicon glyphicon-chevron-down glyphicon-lg" style="color:#ffff00; font-size: 2em " aria-hidden="true"  ng-click="upprovaldown(post, {{ user.id }})"></span>
 
-                                <div class="col-lg-1"><span class="glyphicon glyphicon-saved glyphicon-lg" aria-hidden="true"></span>
+
                                 </div>
                                 <div class="col-lg-11 ">
                                      <div class="panel panel-default">
                                      <div class="panel-heading">
-                                       Posted By : //post.student //
-                                         <button ng-click="delPost(post)" clqss="pull-right">Delete</button>
+                                        <p ng-repeat="student in students | filter: {id:post.student}"> Posted By : // student.username // </p>
+                                         <button ng-click="delPost(post, {{ user.id }})" clqss="pull-right">Delete</button>
                                        </div>
                                       <div class="panel-body">
                                         // post.contents//<br>
@@ -60,16 +66,16 @@
                                          </textarea>
                                          </div>
                                          <div class="col-lg-1">
-                                         <button class="btn btn-primary btn-lg"  ng-click="saveComment(post)">save</button>
+                                         <button class="btn btn-primary btn-lg"  ng-click="saveComment(post, {{ user.id }})">save</button>
                                          </div>
                                      </div>
                                      </div>
                                 </div>
-                                     <div class="comment" ng-repeat="comment in comments | filter: {forumpost:post.id}" >
-                                         <button ng-click="delComment(comment)" >Delete</button>
+                                     <div class="comment" ng-repeat="comment in comments | filter: {forumpost:post.id} |orderBy: '-date' " >
+                                         <button ng-click="delComment(comment, {{ user.id }})" >Delete</button>
                                          <pre>// comment.contents// </pre>
                                          <textarea rows="1" class="form-control"  name="contents" ng-model="currentComment.contents[comment.id]" placeholder="edit comment"></textarea>
-                                         <button ng-click="updateComment(post, comment)">edit</button>
+                                         <button ng-click="updateComment(post, comment, {{ user.id }})">edit</button>
                                      </div>
                                 </div>
                             </div>

@@ -13,6 +13,24 @@ class Forum(TemplateView):
         return context
 
 
+class StudentList(generics.ListCreateAPIView):
+    model = Student
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
+    permission_classes = [
+        permissions.AllowAny
+    ]
+
+
+class ProfessorList(generics.ListCreateAPIView):
+    model = Professor
+    queryset = Professor.objects.all()
+    serializer_class = ProfessorSerializer
+    permission_classes = [
+        permissions.AllowAny
+    ]
+
+
 class ForumPostList(generics.ListCreateAPIView):
     model = ForumPost
     queryset = ForumPost.objects.all()

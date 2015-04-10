@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from forum.models import User, Student, ForumPost, ForumComment
+from forum.models import User, Student, Professor, ForumPost, ForumComment
 
 class UserSerializer(serializers.ModelSerializer):
 
@@ -13,7 +13,14 @@ class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
         ordering = ['score' , 'username']
-        fields = ('id', 'username', 'first_name', 'last_name', 'score')
+        fields = ('id', 'username', 'first_name', 'last_name', 'reg_number' ,'score')
+
+class ProfessorSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Professor
+        ordering = ['username']
+        fields = ('id', 'username', 'first_name', 'last_name', 'cin')
 
 
 class ForumPostSerializer(serializers.ModelSerializer):

@@ -64,11 +64,20 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'educ_platform',
         'USER': 'root',
-        'PASSWORD': 'atef',
+        'PASSWORD': 'a',
         'HOST': '', # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '', # Set to empty string for default.
     }
 }
+
+
+AUTHENTICATION_BACKENDS = (
+    'authentification.auth_backends.StudentModelBackend',
+    'authentification.auth_backends.ProfessorModelBackend',
+)
+
+CUSTOM_USER_MODEL = 'forum.Student'
+CUSTOM_USER_MODEL_P = 'forum.Professor'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/

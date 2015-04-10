@@ -12,7 +12,17 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^$', Forum.as_view(), name='forum'),
+
+    url(r'^accounts/login/$', 'authentification.views.login'),
+    url(r'^accounts/auth/$', 'authentification.views.auth_view'),
+    url(r'^accounts/logout/$', 'authentification.views.logout'),
+    url(r'^accounts/loggedin/$', 'authentification.views.loggedin'),
+    url(r'^accounts/invalid/$', 'authentification.views.invalid_login'),
+
+
+    url(r'^forum/$', Forum.as_view(), name='forum'),
+    url(r'^api-auth/student/$', StudentList.as_view(), name='forumpost-list'),
+    url(r'^api-auth/professor/$', ProfessorList.as_view(), name='forumpost-list'),
     url(r'^api-auth/post/$', ForumPostList.as_view(), name='forumpost-list'),
     url(r'^api-auth/post/(?P<pk>\d+)/$', ForumPostDetail.as_view(), name='forumpost-detail'),
     url(r'^api-auth/comment/$', ForumCommentList.as_view(), name='forumcomment-list'),
