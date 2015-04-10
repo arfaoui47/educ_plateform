@@ -21,8 +21,9 @@ urlpatterns = patterns('',
 
 
     url(r'^forum/$', Forum.as_view(), name='forum'),
-    url(r'^api-auth/student/$', StudentList.as_view(), name='forumpost-list'),
-    url(r'^api-auth/professor/$', ProfessorList.as_view(), name='forumpost-list'),
+    url(r'^api-auth/user/$', StudentList.as_view(), name='user-list'),
+    url(r'^api-auth/student/$', StudentList.as_view(), name='student-list'),
+    url(r'^api-auth/professor/$', ProfessorList.as_view(), name='professor-list'),
     url(r'^api-auth/post/$', ForumPostList.as_view(), name='forumpost-list'),
     url(r'^api-auth/post/(?P<pk>\d+)/$', ForumPostDetail.as_view(), name='forumpost-detail'),
     url(r'^api-auth/comment/$', ForumCommentList.as_view(), name='forumcomment-list'),

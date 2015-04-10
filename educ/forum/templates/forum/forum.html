@@ -41,8 +41,8 @@
                         <div class="panel-body">
                             <div class="posts" ng-repeat="post in posts|orderBy: ['statment','-approval','-date'] " class="row">
                                 <div class="col-lg-1">
-                                    <span class="btn glyphicon glyphicon-saved glyphicon-lg" style="color:darkgray; font-size: 3em " aria-hidden="true" ng-if="notsolved(post)" ng-click="solve(post, {{ user.id }})"></span>
-                                    <span class="btn glyphicon glyphicon-saved glyphicon-lg" style="color:green; font-size: 3em " aria-hidden="true" ng-if="solved(post)" ng-click="solve(post, {{ user.id }})"></span>
+                                    <span class="btn glyphicon glyphicon-saved glyphicon-lg" style="color:darkgray; font-size: 2em " aria-hidden="true" ng-if="notsolved(post)" ng-click="solve(post, {{ user.id }})"></span>
+                                    <span class="btn glyphicon glyphicon-saved glyphicon-lg" style="color:green; font-size: 2em " aria-hidden="true" ng-if="solved(post)" ng-click="solve(post, {{ user.id }})"></span>
                                     <span class="btn glyphicon glyphicon-chevron-up glyphicon-lg" style="color:#ffff00; font-size: 2em " aria-hidden="true"  ng-click="upprovalup(post, {{ user.id }})"></span>
                                     <p style="font-size: 2em; text-align:right">// post.approval // </p>
                                     <span class="btn glyphicon glyphicon-chevron-down glyphicon-lg" style="color:#ffff00; font-size: 2em " aria-hidden="true"  ng-click="upprovaldown(post, {{ user.id }})"></span>
@@ -52,8 +52,8 @@
                                 <div class="col-lg-11 ">
                                      <div class="panel panel-default">
                                      <div class="panel-heading">
-                                        <p ng-repeat="student in students | filter: {id:post.student}"> Posted By : // student.username // </p>
-                                         <button ng-click="delPost(post, {{ user.id }})" clqss="pull-right">Delete</button>
+                                        <span ng-repeat="student in students | filter: {id:post.student}" > Posted By : // student.username // </span>
+                                         <button ng-click="delPost(post, {{ user.id }})" ng-if="is_owner_post(post, {{ user.id }})" >Delete</button>
                                        </div>
                                       <div class="panel-body">
                                         // post.contents//<br>
@@ -70,13 +70,20 @@
                                          </div>
                                      </div>
                                      </div>
+
                                 </div>
-                                     <div class="comment" ng-repeat="comment in comments | filter: {forumpost:post.id} |orderBy: '-date' " >
-                                         <button ng-click="delComment(comment, {{ user.id }})" >Delete</button>
+                                     <div class="comment" ng-repeat="comment in comments | filter: {forumpost:post.id} |orderBy: ['-appreciation','-date'] " >
+                                         <span ng-repeat="user in users |filter: {id:comment.user}"> commented by : //user.username// </span>
+                                         <button ng-click="delComment(comment, {{ user.id }})" ng-if="is_owner_comment(comment, {{ user.id }})">Delete</button>
+                                         <button ng-click="updateComment(post, comment, {{ user.id }})" ng-if="is_owner_comment(comment, {{ user.id }})">edit</button>
+                                         <span> rate : //comment.appreciation// </span>
+                                         <span class="btn glyphicon glyphicon-thumbs-up" style="color:darkgray; font-size: 1em " aria-hidden="true"  ng-click="appreciate(comment, {{ user.id }})"></span>
+                                         <span class="btn glyphicon glyphicon-thumbs-down" style="color:darkgray; font-size: 1em " aria-hidden="true"  ng-click="deappreciate(comment, {{ user.id }})"></span>
                                          <pre>// comment.contents// </pre>
-                                         <textarea rows="1" class="form-control"  name="contents" ng-model="currentComment.contents[comment.id]" placeholder="edit comment"></textarea>
-                                         <button ng-click="updateComment(post, comment, {{ user.id }})">edit</button>
+                                         <textarea rows="1" class="form-control"  name="contents" ng-model="currentComment.contents[comment.id]" placeholder="edit comment" ng-if="is_owner_comment(comment, {{ user.id }})"></textarea>
+                                         <hr>
                                      </div>
+                                <hr>
                                 </div>
                             </div>
                         </div>

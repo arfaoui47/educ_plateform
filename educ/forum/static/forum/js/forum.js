@@ -34,11 +34,19 @@ educ.controller('PostCtrl', function PostCtrl($scope, $log, $http, ModelUtils){
       });
      };
 
+    $scope.loadUser = function(){
+      $http.get('/api-auth/user/').then(function(response){
+        $scope.users = response.data;
+        return response.data;
+      });
+     };
+
 
     $scope.loadPost();
     $scope.loadComment();
     $scope.loadStudent();
     $scope.loadProfessor();
+    $scope.loadUser();
     $scope.currentPost = {};
     $scope.currentComment = {};
     $scope.currentStudent = {};
@@ -127,6 +135,42 @@ educ.controller('PostCtrl', function PostCtrl($scope, $log, $http, ModelUtils){
             post.approval--;
             ModelUtils.save('/api-auth/post/', post).then(function () {
                 $scope.loadPost();
+            });
+        }
+    }
+
+    $scope.is_owner_comment=function(comment, user_id){
+        if(comment.user == user_id){
+            return 1;
+        }
+        else{
+            return 0;
+        }
+    }
+
+    $scope.is_owner_post=function(post, user_id){
+        if(post.student == user_id){
+            return 1;
+        }
+        else{
+            return 0;
+        }
+    }
+
+    $scope.appreciate=function(comment, user_id){
+        if(comment.user != user_id){
+            comment.appreciation++;
+            ModelUtils.save('/api-auth/comment/', comment).then(function () {
+                $scope.loadComment();
+            });
+        }
+    }
+
+    $scope.deappreciate=function(comment, user_id){
+        if(comment.user != user_id){
+            comment.appreciation--;
+            ModelUtils.save('/api-auth/comment/', comment).then(function () {
+                $scope.loadComment();
             });
         }
     }
