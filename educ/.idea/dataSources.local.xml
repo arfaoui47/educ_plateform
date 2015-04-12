@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="Django default" uuid="07ba396b-48d8-4f38-ad51-2c98962c594d">
+      <user-name>root</user-name>
+      <user-password>dfcbdfdedfcfdfcc</user-password>
+      <schema-pattern>educ_platform.*</schema-pattern>
+      <default-schemas>educ_platform.*</default-schemas>
+    </data-source>
+  </component>
+</project>

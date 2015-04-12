@@ -6,20 +6,26 @@
 {% endblock %}
 
 {% block includes_css %}
-    <script src="{% static "partage/css/partage.css" %}"></script>
+    <link rel="stylesheet" href="{% static "partage/css/partage.css" %}">
 {% endblock %}
 
 
 {% block content %}
-<div ng-app="partage">
-    <div ng-controller="AppController">
-        <input type="file" nv-file-select uploader="uploader"/><br/>
-        <ul>
-            <li ng-repeat="item in uploader.queue">
-                Name: <span ng-bind="item.file.name"></span><br/>
-                <button ng-click="item.upload()">upload</button>
-            </li>
-        </ul>
-    </div>
+<div ng-controller="MyCtrl">
+    watching model:
+    <div class="button" ng-file-select ng-model="files" ng-multiple="multiple">Select File</div>
+    on file change:
+    <div class="button" ng-file-select ng-file-change="upload($files)" ng-multiple="multiple">Select File</div>
+    </ul>
+ Drop File:
+    <div ng-file-drop ng-file-select ng-model="files" class="drop-box"
+        drag-over-class="dragover" ng-multiple="true" allow-dir="true"
+        accept="image/*,application/pdf">Drop pdfs or images here or click to upload</div>
+    <div ng-no-file-drop>File Drag/Drop is not supported for this browser</div>
+    <ul>
+        <li ng-repeat="f in files">// f.name //</li>
+    </ul>
 </div>
+
+    <div class="red">atefazzaeaz</div>
 {% endblock %}

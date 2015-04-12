@@ -144,7 +144,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(max_length=50)),
-                ('file', models.CharField(max_length=50)),
+                ('file', models.FileField(upload_to=b'uploads/')),
                 ('year', models.IntegerField()),
                 ('type', models.CharField(max_length=50)),
                 ('subject', models.CharField(max_length=50)),

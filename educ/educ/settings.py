@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'rest_framework',
     'forum',
     'partage',
+    'calender',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -64,7 +65,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'educ_platform',
         'USER': 'root',
-        'PASSWORD': 'a',
+        'PASSWORD': 'atef',
         'HOST': '', # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '', # Set to empty string for default.
     }
