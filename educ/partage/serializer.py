@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
-from forum.models import User, Student, Professor, ProfessorDocs
+from partage.models import *
+from authentification.models import *
 
 class UserSerializer(serializers.ModelSerializer):
 

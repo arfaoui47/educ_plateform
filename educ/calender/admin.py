@@ -1,3 +1,5 @@
 from django.contrib import admin
+from calender.models import *
 
-# Register your models here.
+admin.site.register(Calendar)
+

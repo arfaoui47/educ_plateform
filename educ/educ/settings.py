@@ -37,9 +37,13 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'authentification',
     'forum',
     'partage',
     'calender',
+    'notification',
+    'notes',
+
 )
 
 MIDDLEWARE_CLASSES = (
@@ -65,7 +69,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'educ_platform',
         'USER': 'root',
-        'PASSWORD': 'atef',
+        'PASSWORD': 'a',
         'HOST': '', # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '', # Set to empty string for default.
     }
@@ -75,11 +79,11 @@ DATABASES = {
 AUTHENTICATION_BACKENDS = (
     'authentification.auth_backends.StudentModelBackend',
     'authentification.auth_backends.ProfessorModelBackend',
+    'django.contrib.auth.backends.ModelBackend',
 )
 
-CUSTOM_USER_MODEL = 'forum.Student'
-CUSTOM_USER_MODEL_P = 'forum.Professor'
-
+CUSTOM_USER_MODEL = 'authentification.Student'
+CUSTOM_USER_MODEL_P = 'authentification.Professor'
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 

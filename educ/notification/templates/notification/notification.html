@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block includes_js %}
+        <script src="{% static "notification/js/notification.js" %}"></script>
+{% endblock %}
+
+{% block includes_css %}
+        <script src="{% static "notification/css/notification.css" %}"></script>
+{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+         <div ng-controller="NotificationCtrl">
+             <div>
+                <span class="glyphicon glyphicon-bell" style="color:red; font-size: 1.5em;" ng-if="onenotread(notifications, {{ user.id }})" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-bell" style="color:green; font-size: 1.5em;" ng-if="allread(notifications, {{ user.id }})" aria-hidden="true"></span>
+             </div><br>
+             <span ng-repeat="notification in notifications  | filter : { user : {{ user.id }} }">// notification.contents // //notification.user//<br>
+                <div class="alert alert-success" role="alert" ng-if="read(notification)">
+                    <span>  //notification.contents// </span> <span class="pull-right">date : // notification.date //  || <strong>Readed</strong></span>
+                </div>
+                <div class="alert alert-danger" role="alert" ng-if="notread(notification)" ng-click="updateNotification(notification)">
+                  <span>  //notification.contents//  // notification.date //</span><strong class="pull-right">Unreaded!</strong>
+                </div>
+             </span>
+         </div>
+    </div>
+
+
+{% endblock %}
+

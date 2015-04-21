@@ -12,31 +12,6 @@ class Forum(TemplateView):
         context = super(Forum, self).get_context_data(**kwargs)
         return context
 
-class UserList(generics.ListCreateAPIView):
-    model = User
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-    permission_classes = [
-        permissions.AllowAny
-    ]
-
-class StudentList(generics.ListCreateAPIView):
-    model = Student
-    queryset = Student.objects.all()
-    serializer_class = StudentSerializer
-    permission_classes = [
-        permissions.AllowAny
-    ]
-
-
-class ProfessorList(generics.ListCreateAPIView):
-    model = Professor
-    queryset = Professor.objects.all()
-    serializer_class = ProfessorSerializer
-    permission_classes = [
-        permissions.AllowAny
-    ]
-
 
 class ForumPostList(generics.ListCreateAPIView):
     model = ForumPost

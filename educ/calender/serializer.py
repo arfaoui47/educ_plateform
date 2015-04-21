@@ -1,6 +1,9 @@
 from rest_framework import serializers
 
-from forum.models import User, Student, Professor, Calendar
+from forum.models import *
+from authentification.models import *
+from calender.models import *
+
 class UserSerializer(serializers.ModelSerializer):
 
     class Meta:

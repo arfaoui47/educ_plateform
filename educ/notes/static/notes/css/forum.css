@@ -1,0 +1,37 @@
+.submitpost{
+    text-align:center;
+}
+.submitpost input{
+    width  : 500px;
+}
+.submitpost textarea{
+   width  : 500px;
+}
+.viewpost{
+    margin: auto;
+    width:500px;
+}
+.viewpost textarea{
+   width  : 400px;
+}
+.viewpost hr{
+    width:350px;
+}
+.posts{
+     margin-top: 20px;
+     border : 1px solid black ;
+}
+.innerpost{
+    margin : 20px;
+}
+
+.glyphicon-lg {
+    font-size: 3em;
+}
+
+.comment{
+    margin-top: 10px;
+}
+.posts{
+    margin-top: 10px;
+}

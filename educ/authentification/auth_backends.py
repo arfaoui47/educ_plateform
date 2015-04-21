@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib.auth.backends import ModelBackend
 from django.core.exceptions import ImproperlyConfigured
 from django.db.models import get_model
+from django.contrib.auth import get_backends, get_user_model
 
 
 class StudentModelBackend(ModelBackend):
@@ -50,7 +51,4 @@ class ProfessorModelBackend(ModelBackend):
             if not self._user_class:
                 raise ImproperlyConfigured('Could not get student model')
         return self._user_class
-
-
-
 

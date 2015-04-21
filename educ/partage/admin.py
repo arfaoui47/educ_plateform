@@ -1,3 +1,6 @@
 from django.contrib import admin
+from partage.models import *
 
-# Register your models here.
+admin.site.register(ProfessorDocs)
+admin.site.register(Subject)
+
