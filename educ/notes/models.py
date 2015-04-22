@@ -6,5 +6,5 @@ class Note(models.Model):
     note = models.IntegerField()
     professor = models.ForeignKey(Professor)
     student = models.ForeignKey(Student)
-    statement = models.CharField(max_length=50)
+    statement = models.BooleanField(default= False)
 

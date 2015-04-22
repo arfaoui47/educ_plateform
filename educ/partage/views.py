@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializer import *
 from rest_framework import viewsets
+from rest_framework import generics, permissions
 from rest_framework.parsers import FormParser, MultiPartParser
 
 
@@ -28,4 +29,11 @@ class ProfessorDocsList(viewsets.ModelViewSet):
         obj.samplesheet = self.request.FILES.get('file')
 
 
+class SubjectList(generics.ListCreateAPIView):
+    model = Subject
+    queryset = Subject.objects.all()
+    serializer_class = SubjectSerializer
+    permission_classes = [
+        permissions.AllowAny
+    ]
 

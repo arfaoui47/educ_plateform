@@ -33,3 +33,10 @@ class ProfessorDocsSerializer(serializers.ModelSerializer):
         model = ProfessorDocs
         ordering = ['appreciation', 'date']
         fields = ('id', 'name', 'file', 'year', 'type', 'subject', 'professor', 'date')
+
+
+class SubjectSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Subject
+        fields = ('id', 'name', 'classroom', 'professor')

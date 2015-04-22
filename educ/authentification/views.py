@@ -7,28 +7,37 @@ from .serializer import *
 from rest_framework import generics, permissions
 
 
-class UserList(generics.ListCreateAPIView):
+class UsersList(generics.ListCreateAPIView):
     model = User
     queryset = User.objects.all()
-    serializer_class = UserSerializer
+    serializer_class = UsersSerializer
     permission_classes = [
         permissions.AllowAny
     ]
 
 
-class StudentList(generics.ListCreateAPIView):
+class StudentsList(generics.ListCreateAPIView):
     model = Student
     queryset = Student.objects.all()
-    serializer_class = StudentSerializer
+    serializer_class = StudentsSerializer
     permission_classes = [
         permissions.AllowAny
     ]
 
 
-class ProfessorList(generics.ListCreateAPIView):
+class ClassroomList(generics.ListCreateAPIView):
+    model = Classroom
+    queryset = Classroom.objects.all()
+    serializer_class = ClassroomSerializer
+    permission_classes = [
+        permissions.AllowAny
+    ]
+
+
+class ProfessorsList(generics.ListCreateAPIView):
     model = Professor
     queryset = Professor.objects.all()
-    serializer_class = ProfessorSerializer
+    serializer_class = ProfessorsSerializer
     permission_classes = [
         permissions.AllowAny
     ]
