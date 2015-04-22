@@ -11,21 +11,36 @@
 
 
 {% block content %}
-<div ng-controller="MyCtrl">
-    watching model:
-    <div class="button" ng-file-select ng-model="files" ng-multiple="multiple">Select File</div>
-    on file change:
-    <div class="button" ng-file-select ng-file-change="upload($files)" ng-multiple="multiple">Select File</div>
-    </ul>
- Drop File:
-    <div ng-file-drop ng-file-select ng-model="files" class="drop-box"
-        drag-over-class="dragover" ng-multiple="true" allow-dir="true"
-        accept="image/*,application/pdf">Drop pdfs or images here or click to upload</div>
-    <div ng-no-file-drop>File Drag/Drop is not supported for this browser</div>
-    <ul>
-        <li ng-repeat="f in files">// f.name //</li>
-    </ul>
-</div>
+   <div class="container">
 
-    <div class="red">atefazzaeaz</div>
+    {% if user.cin %}
+    <form method="post" enctype="multipart/form-data" action="#">
+       {% csrf_token %}
+       {{ form.as_p }}
+       <input type="submit"/>
+    </form>
+
+    <div ng-controller="ParCtrl" >
+        <div  ng-repeat="fich in fichs">
+            <p>//fich.name//</p>
+            <p>//fich.classroom//</p>
+            <p>//fich.date//</p>
+            <p>//fich.type//</p>
+            <a target="_blank" href="//fich.file//">link</a>
+        </div>
+    </div>
+    {% endif %}
+    {% if user.reg_number %}
+    <div ng-controller="ParCtrl" >
+        <div ng-repeat="subj in subjs |filter :{classroom:{{user.classroom.id}}} ">
+            <h1>//subj.name//</h1>
+            <div ng-repeat="fich in fichs |filter :{professor:subj.professor}">
+                <p>//fich.name//</p>
+                <a target="_blank" href="//fich.file//">link</a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+   </div>
+
 {% endblock %}

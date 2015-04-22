@@ -19,11 +19,11 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
-    url(r'^accounts/login/$', 'authentification.views.login'),
+    url(r'^$', 'authentification.views.login'),
     url(r'^accounts/auth/$', 'authentification.views.auth_view'),
-    url(r'^accounts/logout/$', 'authentification.views.logout'),
+    url(r'^$', 'authentification.views.logout'),
     url(r'^accounts/loggedin/$', 'authentification.views.loggedin'),
-    url(r'^accounts/invalid/$', 'authentification.views.invalid_login'),
+    url(r'^$', 'authentification.views.invalid_login'),
 
 
     url(r'^forum/$', Forum.as_view(), name='forum'),
@@ -36,7 +36,8 @@ urlpatterns = patterns('',
     url(r'^api-auth/post/(?P<pk>\d+)/$', ForumPostDetail.as_view(), name='forumpost-detail'),
     url(r'^api-auth/comment/$', ForumCommentList.as_view(), name='forumcomment-list'),
     url(r'^api-auth/comment/(?P<pk>\d+)/$', ForumCommentDetail.as_view(), name='forumcomment-detail'),
-    url(r'^upload/$', Partage.as_view(), name='partage'),
+    url(r'^uploads/$', 'partage.views.nouveau_file'),
+    url(r'^api-auth/uploads/$', ProfessorDocsList.as_view(), name='professordocs-list'),
     url(r'^calender/$', Calender.as_view(),name='calender'),
     url(r'^notification/$', Notifications.as_view(),name='notification'),
     url(r'^api-auth/notification/$', NotificationList.as_view(), name='notification-list'),
@@ -46,3 +47,5 @@ urlpatterns = patterns('',
     url(r'^api-auth/note/(?P<pk>\d+)/$', NotesDetail.as_view(), name='notes-detail')
 
 )
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

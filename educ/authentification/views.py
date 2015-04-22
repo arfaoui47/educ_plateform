@@ -66,17 +66,20 @@ def auth_view(request):
         #     request.session['user_type'] = "student"
         return HttpResponseRedirect('/accounts/loggedin')
     else:
-        return  HttpResponseRedirect('/accounts/login')
+        return  HttpResponseRedirect('/')
+
 
 def loggedin(request):
-    return render_to_response('forum/index.html',
+    return render_to_response('forum/forum.html',
         {'user' : request.user})
+
 
 def invalid_login(request):
     return render_to_response('login_student.html')
 
+
 def logout(request):
     auth.logout(request)
-    return render_to_response('logout.html')
+    return render_to_response('login_student.html')
 
 

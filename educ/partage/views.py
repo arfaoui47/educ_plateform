@@ -1,11 +1,10 @@
 from django.views.generic import TemplateView
-from rest_framework.parsers import JSONParser
-from rest_framework.response import Response
-from rest_framework.views import APIView
+from django.shortcuts import render
 from .serializer import *
-from rest_framework import viewsets
+from django import forms
 from rest_framework import generics, permissions
-from rest_framework.parsers import FormParser, MultiPartParser
+from partage.models import *
+from authentification.models import *
 
 
 class Partage(TemplateView):
@@ -16,17 +15,41 @@ class Partage(TemplateView):
         return context
 
 
-class ProfessorDocsList(viewsets.ModelViewSet):
+class file(forms.ModelForm):
+    class Meta:
+        model = ProfessorDocs
+        fields=('name','file','year','type','classroom')
+        exclude = ["professor"]
+
+
+def nouveau_file(request):
+    sauvegarde = False
+
+    if request.method == "POST":
+        form = file(request.POST, request.FILES)
+        if form.is_valid():
+            fichier = ProfessorDocs(file = request.FILES['file'])
+            fichier.name = form.cleaned_data["name"]
+            fichier.file = form.cleaned_data["file"]
+            fichier.year = form.cleaned_data["year"]
+            fichier.type = form.cleaned_data["type"]
+            fichier.classroom = form.cleaned_data["classroom"]
+            fichier.professor = Professor.objects.get(id=request.user.id)
+            fichier.save()
+            sauvegarde = True
+    else:
+        form = file()
+
+    return render(request, 'partage/partage.html', locals())
+
+
+class ProfessorDocsList(generics.ListCreateAPIView):
     model = ProfessorDocs
     queryset = ProfessorDocs.objects.all()
     serializer_class = ProfessorDocsSerializer
-    parser_classes = (MultiPartParser, FormParser,)
-
-    def perform_create(self, serializer):
-        serializer.save(professor=self.request.user,
-                       file=self.request.data.get('datafile'))
-    def pre_save(self, obj):
-        obj.samplesheet = self.request.FILES.get('file')
+    permission_classes = [
+        permissions.AllowAny
+    ]
 
 
 class SubjectList(generics.ListCreateAPIView):
@@ -37,3 +60,11 @@ class SubjectList(generics.ListCreateAPIView):
         permissions.AllowAny
     ]
 
+
+class ProfessorDocsDetail(generics.ListCreateAPIView):
+    model = ProfessorDocs
+    queryset = ProfessorDocs.objects.all()
+    serializer_class = ProfessorDocsSerializer
+    permission_classes = [
+        permissions.AllowAny
+    ]

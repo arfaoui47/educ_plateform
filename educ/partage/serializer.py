@@ -25,14 +25,10 @@ class ProfessorSerializer(serializers.ModelSerializer):
 
 
 class ProfessorDocsSerializer(serializers.ModelSerializer):
-    professor = serializers.SlugRelatedField(
-        read_only=True,
-        slug_field='id'
-    )
+
     class Meta:
         model = ProfessorDocs
-        ordering = ['appreciation', 'date']
-        fields = ('id', 'name', 'file', 'year', 'type', 'subject', 'professor', 'date')
+        fields = ('name', 'file', 'year', 'type', 'professor', 'classroom')
 
 
 class SubjectSerializer(serializers.ModelSerializer):

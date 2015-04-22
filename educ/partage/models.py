@@ -7,7 +7,7 @@ class ProfessorDocs(models.Model):
     file = models.FileField(upload_to='uploads/')
     year = models.IntegerField()
     type = models.CharField(max_length=50)
-    subject = models.CharField(max_length=50)
+    classroom = models.ForeignKey(Classroom)
     professor = models.ForeignKey(Professor)
     date = models.DateTimeField(auto_now=False,auto_now_add=True)
 
