@@ -19,8 +19,8 @@ class Migration(migrations.Migration):
                 ('file', models.FileField(upload_to=b'uploads/')),
                 ('year', models.IntegerField()),
                 ('type', models.CharField(max_length=50)),
-                ('subject', models.CharField(max_length=50)),
                 ('date', models.DateTimeField(auto_now_add=True)),
+                ('classroom', models.ForeignKey(to='authentification.Classroom')),
                 ('professor', models.ForeignKey(to='authentification.Professor')),
             ],
             options={

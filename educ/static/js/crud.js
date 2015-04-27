@@ -1,4 +1,4 @@
-var educ = angular.module('educ',['ngCookies','angularFileUpload']);
+var educ = angular.module('educ',['ngCookies']);
 
 educ.config(function($interpolateProvider) {
    $interpolateProvider.startSymbol('//');

@@ -7,11 +7,12 @@
     {% block includes_css %}{% endblock %}
     <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
     <link rel="stylesheet" href="{% static "css/bootstrap-theme.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/base.css" %}">
     <script src="{% static "js/angular.min.js" %}"></script>
     <script src="{% static "js/angular-file-upload.js" %}"></script>
     <script src="{% static "js/angular-file-upload-shim.js" %}"></script>
     <script src="{% static "js/angular-cookies.js" %}"></script>
-    <script src="{% static "js/ui-bootstrap-tpls-0.12.1.min.js" %}"></script>
+    <script src="{% static "js/ui-boot  strap-tpls-0.12.1.min.js" %}"></script>
     <script src="{% static "js/crud.js" %}"></script>
 
     {% block includes_js %}{% endblock %}
@@ -53,8 +54,47 @@
     </div>
   </div>
 </nav>
-<br><br>
-{% block content %}
-{% endblock %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3">
+
+          <div class="list-group">
+            <a href="/Notes" class="list-group-item active">
+              Last Marks
+            </a>
+            <a href="#" class="list-group-item">DS Algorithm : 15</a>
+            <a href="#" class="list-group-item">TP Gestion : 8</a>
+          </div>
+
+          <div class="list-group">
+            <a href="/uploads" class="list-group-item active">
+              Last Docs
+            </a>
+            <a href="#" class="list-group-item">TD : Algorithm</a>
+            <a href="#" class="list-group-item">TD : Gestion</a>
+            <a href="#" class="list-group-item">Lesson :  Transmission</a>
+            <a href="#" class="list-group-item">TP : Operating System</a>
+          </div>
+
+        </div>
+        <div class="col-sm-8">
+        {% block content %}
+        {% endblock %}
+        </div>
+        <div class="col-sm-1">
+            <span class="glyphicon glyphicon-comment glyphicon-lg"  style="color:{% block color_forum %} {% endblock %}" aria-hidden="true"></span><br>
+            <hr>
+            <span class="glyphicon glyphicon-signal glyphicon-lg" style="color:{% block color_notes %} {% endblock %}" aria-hidden="true"></span><br>
+            <hr>
+            <span class="glyphicon glyphicon-education glyphicon-lg" style="color:{% block color_uploads %} {% endblock %}" aria-hidden="true"></span><br>
+            <hr>
+            <span class="glyphicon glyphicon-calendar glyphicon-lg" style="color:{% block color_calendar %} {% endblock %}" aria-hidden="true"></span><br>
+            <hr>
+            <span class="glyphicon glyphicon-envelope glyphicon-lg" style="color:{% block color_messages %} {% endblock %}" aria-hidden="true"></span><br>
+            <hr>
+        </div>
+
+    </div>
+</div>
 </body>
 </html>

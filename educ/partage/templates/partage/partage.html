@@ -11,7 +11,7 @@
 
 
 {% block content %}
-   <div class="container">
+
 
     {% if user.cin %}
     <form method="post" enctype="multipart/form-data" action="#">
@@ -30,6 +30,7 @@
         </div>
     </div>
     {% endif %}
+
     {% if user.reg_number %}
     <div ng-controller="ParCtrl" >
         <div ng-repeat="subj in subjs |filter :{classroom:{{user.classroom.id}}} ">
@@ -41,6 +42,7 @@
         </div>
     </div>
     {% endif %}
-   </div>
 
 {% endblock %}
+
+{% block color_uploads %} #2f72ab {% endblock %}

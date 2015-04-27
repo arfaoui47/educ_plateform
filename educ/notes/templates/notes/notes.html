@@ -3,6 +3,37 @@
 
 {% block includes_js %}
         <script src="{% static "notes/js/notes.js" %}"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <style type="text/css">
+        ${demo.css}
+	</style>
+        <script type="text/javascript">
+    $(function () {
+    $('#container').highcharts({
+        data: {
+            table: document.getElementById('datatable')
+        },
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: ''
+        },
+        yAxis: {
+            allowDecimals: false,
+            title: {
+                text: 'Units'
+            }
+        },
+        tooltip: {
+            formatter: function () {
+                return '<b>' + this.series.name + '</b><br/>' +
+                    this.point.y + ' ' + this.point.name.toLowerCase();
+            }
+        }
+    });
+    });
+	</script>
 {% endblock %}
 
 {% block includes_css %}
@@ -14,54 +45,160 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container">
-    <div>
+
         <div ng-controller="NotesCtrl" >
             {% if user.cin %}
-                <div>
-                    <h3>Add Marks :</h3>
+                <div class="panel panel-primary">
+                 <div class="panel-heading">
+                 My Marks
+                 </div>
                     <span ng-repeat="subject in subjects | filter: { professor : {{ user.id }} }">
-                        // subject.name //
-                        <span ng-repeat="classroom in classrooms |filter: {id: subject.classroom }">//classroom.class_name//   </span>
+                        <div style="text-align: center; font-size: 1.5em">
+                            // subject.name // |
+                            <span ng-repeat="classroom in classrooms |filter: {id: subject.classroom }">
+                                Class : //classroom.class_name//
+                            </span>
+                        </div>
                         <br>
-                        <span ng-repeat="student in students | filter: { classroom : subject.classroom }">
-                            <span>// student.username //</span><input type="text" style="width:40px" ng-model="currentNotes[subject.id].note[student.id]"/>
-                        </span>
+                        <table st-table="students" class="table table-striped">
+	                        <thead>
+	                        <tr>
+	                        	<th>Student Name</th>
+                                <th>Note DS</th>
+                                <th>Note TP</th>
+                                <th>Note Exam</th>
+	                        </tr>
+	                        </thead>
+	                        <tbody>
+	                        <tr ng-repeat="student in students | filter: { classroom : subject.classroom }">
+                                <td>//student.username//</td>
+                                <td ng-repeat="note in notes | filter : { student : student.id}">//note.note//</td>
+	                        </tr>
+	                        </tbody>
+                        </table>
                         <br>
+                    </span>
+                </div>
+
+                <div class="panel panel-primary">
+                 <div class="panel-heading">
+                 Add Marks
+                 </div>
+                 <div class="panel-body">
+                    <span ng-repeat="subject in subjects | filter: { professor : {{ user.id }} }">
+                        <div style="text-align: center; font-size: 1.5em">
+                            // subject.name // |
+                            <span ng-repeat="classroom in classrooms |filter: {id: subject.classroom }">
+                                Class : //classroom.class_name//
+                            </span>
+                        </div>
+                        <br>
+                        <table st-table="students" class="table table-striped">
+	                        <thead>
+	                        <tr>
+	                        	<th>Student Name</th>
+                                <th>Note DS</th>
+                                <th>Note TP</th>
+                                <th>Note Exam</th>
+	                        </tr>
+	                        </thead>
+	                        <tbody>
+                            <tr ng-repeat="student in students | filter: { classroom : subject.classroom }">
+                                <td>//student.username//</td>
+                                <td><input type="text" style="width:40px" ng-model="currentNotes[subject.id].note[student.id]"/></td>
+                                <td><input type="text" style="width:40px" ng-model="currentNotes[subject.id].note[student.id]"/></td>
+                                <td><input type="text" style="width:40px" ng-model="currentNotes[subject.id].note[student.id]"/></td>
+	                        </tr>
+                        </table>
                         <button class="btn btn-primary"  ng-click="saveNotes(subject.id, {{ user.id }})">save</button><br><br>
                     </span>
                 </div>
-                <div>
-                    <h3> My Marks : </h3>
-                    <span ng-repeat="subject in subjects | filter: { professor : {{ user.id }} }">
-                        // subject.name //
-                        <span ng-repeat="classroom in classrooms |filter: {id: subject.classroom }">//classroom.class_name//   </span>
-                        <br>
-                        <span ng-repeat="student in students | filter: { classroom : subject.classroom }">
-                            <span>// student.username // : </span>
-                            <span ng-repeat="note in notes | filter : { student : student.id}">//note.note// - //note.statement// ||</span><br>
-                        </span>
-                        <br>
-                    </span>
-                </div>
+             </div>
+
 
             {% endif %}
 
             {% if user.reg_number %}
-                     <div>
-                    <h3> My Marks : </h3>
-                    <span ng-repeat="subject in subjects | filter: { classroom : {{ user.classroom.id }} }">
-                        // subject.name //<br>
-                            <span ng-repeat="note in notes | filter : { student : {{ user.id }}, professor : subject.professor, statement : 'True' }">//note.note//  || </span><br>
-                        </span>
-                        <br>
-                    </span>
-                </div>
+            <div class="panel panel-primary">
+            <div class="panel-heading">
+            My Marks
+             </div>
+            <div class="panel-body">
+
+            <table id="datatable" class="table table-striped">
+	            <thead>
+		            <tr>
+			            <th></th>
+			            <th>DS</th>
+			            <th>TP</th>
+			            <th>Exam</th>
+		            </tr>
+	            </thead>
+	            <tbody>
+		            <tr>
+			            <th>Algorithm</th>
+			            <td>7</td>
+			            <td>12</td>
+			            <td>15</td>
+		            </tr>
+                    <tr>
+			            <th>OS</th>
+			            <td>15</td>
+			            <td>16</td>
+			            <td>14</td>
+		            </tr>
+                    <tr>
+			            <th>Networks</th>
+			            <td>9</td>
+			            <td>12</td>
+			            <td>10</td>
+		            </tr>
+                    <tr>
+			            <th>Managment</th>
+			            <td>8</td>
+			            <td>10</td>
+			            <td>4</td>
+		            </tr>
+                    <tr>
+			            <th>Frensh</th>
+			            <td>12</td>
+			            <td>13.5</td>
+			            <td>8</td>
+		            </tr>
+                    <tr>
+			            <th>BD</th>
+			            <td>15</td>
+			            <td>18</td>
+			            <td>12</td>
+		            </tr>
+	            </tbody>
+            </table>
+            <script src="{% static "notes/js/chart/highcharts.js" %}"></script>
+            <script src="{% static "notes/js/chart/modules/data.js" %}"></script>
+            <script src="{% static "notes/js/chart/modules/exporting.js" %}"></script>
+            <hr><br>
+            <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+            </div>
+            </div>
+
+           <h3> My Marks : </h3>
+           <span ng-repeat="subject in subjects | filter: { classroom : {{ user.classroom.id }} }">
+               // subject.name //<br>
+               <span ng-repeat="note in notes | filter : { student : {{ user.id }}, professor : subject.professor, statement : 'True' }">//note.note//  || </span><br>
+           </span>
+           <br>
+
 
             {% endif %}
+        <br><br>
+
         </div>
-    </div>
-    </div>
+
+
+
+
 
 {% endblock %}
 
+{% block color_notes %} #2f72ab {% endblock %}

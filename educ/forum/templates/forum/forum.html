@@ -14,19 +14,17 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container">
-    <div>
-        <div ng-controller="PostCtrl" ng-init="initialize('ready man')">
+        <div ng-controller="PostCtrl">
                 {% if user.reg_number %}
-                <div class="col-lg-8 col-md-offset-2">
+                <div>
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            <p>New Post</p>
+                            New Post
                         </div>
                         <div class="panel-body">
                             <form>
-                                  <textarea class="form-control" row=3 style="height:100px" name="contents" ng-model="currentPost.contents" placeholder="new Post" ></textarea><br>
-                                 <input class="form-control" row=2 type="text" name="hashtags" ng-model="currentPost.hashtags" placeholder="#hashtags"/>
+                                  <textarea class="form-control"  style="height:100px" name="contents" ng-model="currentPost.contents" placeholder="new Post" ></textarea><br>
+                                 <input class="form-control"  type="text" name="hashtags" ng-model="currentPost.hashtags" placeholder="#hashtags"/>
                              </form>
                         </div>
                         <div class="panel-footer">
@@ -35,7 +33,7 @@
                     </div>
                  </div>
                 {%  endif %}
-                 <div class="col-lg-8 col-md-offset-2">
+                 <div>
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             View Posts
@@ -92,8 +90,9 @@
                     </div>
                  </div>
         </div>
-    </div>
-    </div>
+
 
 {% endblock %}
+
+{% block color_forum %} #2f72ab {% endblock %}
 
