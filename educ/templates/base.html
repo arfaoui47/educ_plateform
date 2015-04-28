@@ -12,8 +12,12 @@
     <script src="{% static "js/angular-file-upload.js" %}"></script>
     <script src="{% static "js/angular-file-upload-shim.js" %}"></script>
     <script src="{% static "js/angular-cookies.js" %}"></script>
-    <script src="{% static "js/ui-boot  strap-tpls-0.12.1.min.js" %}"></script>
+    <script src="{% static "js/angular-route.js" %}"></script>
+    <script src="{% static "js/angular-modal-service.js" %}"></script>
+    <script src=" http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.6.0.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     <script src="{% static "js/crud.js" %}"></script>
+    <script src="{% static "notification/js/notification.js" %}"></script>
 
     {% block includes_js %}{% endblock %}
 
@@ -38,8 +42,8 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li {% block forum_active %}{% endblock %}><a href="/forum">Forum<span class="sr-only">(current)</span></a></li>
-        <li {% block notes_active %}{% endblock %}><a href="/notes">Note<span class="sr-only">(current)</span></a></li>
-        <li {% block uploads_active %}{% endblock %}><a href="/uploads">Cour</a></li>
+        <li {% block notes_active %}{% endblock %}><a href="/notes">Marks<span class="sr-only">(current)</span></a></li>
+        <li {% block uploads_active %}{% endblock %}><a href="/uploads">Docs</a></li>
       </ul>
       <form class="navbar-form navbar-left" role="search">
         <div class="form-group">
@@ -49,6 +53,11 @@
       </form>
       <ul class="nav navbar-nav navbar-right">
           <li>{% if user.id %}<a href="#">Welcome {{ user.username }}</a> {% endif %}</li>
+          <li ng-controller="NotificationCtrl"><a>
+              <span class="glyphicon glyphicon-bell" style="color:red; font-size: 1.5em;" ng-if="onenotread(notifications, {{ user.id }})" aria-hidden="true"></span>
+              <span class="glyphicon glyphicon-bell" style="color:green; font-size: 1.5em;" ng-if="allread(notifications, {{ user.id }})" aria-hidden="true"></span>
+              </a>
+          </li>
           <li>{% if user.id %}<a href="/">Log out</a>{% else %}<a href="/">Log in</a>{% endif %}</li>
       </ul>
     </div>
@@ -62,8 +71,13 @@
             <a href="/Notes" class="list-group-item active">
               Last Marks
             </a>
-            <a href="#" class="list-group-item">DS Algorithm : 15</a>
-            <a href="#" class="list-group-item">TP Gestion : 8</a>
+            {% if user.cin %}
+            <a href="#" class="list-group-item">II2b : Validated</a>
+            <a href="#" class="list-group-item">II2a : Unvalidated</a>
+            {%  else %}
+            <a href="#" class="list-group-item">Exam Algorithm : 15</a>
+            <a href="#" class="list-group-item">Exam Managment : 4</a>
+            {% endif %}
           </div>
 
           <div class="list-group">
@@ -71,14 +85,15 @@
               Last Docs
             </a>
             <a href="#" class="list-group-item">TD : Algorithm</a>
-            <a href="#" class="list-group-item">TD : Gestion</a>
-            <a href="#" class="list-group-item">Lesson :  Transmission</a>
-            <a href="#" class="list-group-item">TP : Operating System</a>
+            <a href="#" class="list-group-item">TP : Algorithm</a>
+            <a href="#" class="list-group-item">Lesson :  Algorithm</a>
+            <a href="#" class="list-group-item">TP : Algorithm</a>
           </div>
 
         </div>
         <div class="col-sm-8">
         {% block content %}
+
         {% endblock %}
         </div>
         <div class="col-sm-1">

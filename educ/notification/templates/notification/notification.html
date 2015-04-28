@@ -11,23 +11,26 @@
 
 
 {% block content %}
-    <div class="container">
          <div ng-controller="NotificationCtrl">
-             <div>
-                <span class="glyphicon glyphicon-bell" style="color:red; font-size: 1.5em;" ng-if="onenotread(notifications, {{ user.id }})" aria-hidden="true"></span>
-                <span class="glyphicon glyphicon-bell" style="color:green; font-size: 1.5em;" ng-if="allread(notifications, {{ user.id }})" aria-hidden="true"></span>
-             </div><br>
-             <span ng-repeat="notification in notifications  | filter : { user : {{ user.id }} }">// notification.contents // //notification.user//<br>
+         <div class="panel panel-primary">
+         <div class="panel-heading">
+            <span>Notifications</span>
+            <span class="pull-right">
+                <span class="glyphicon glyphicon-bell" style="color:red; " ng-if="onenotread(notifications, {{ user.id }})" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-bell"  ng-if="allread(notifications, {{ user.id }})" aria-hidden="true"></span>
+             </span>
+          </div>
+         <div class="panel-body">
+             <span ng-repeat="notification in notifications  | filter : { user : {{ user.id }} } | orderBy: ['statement', '-date']">
                 <div class="alert alert-success" role="alert" ng-if="read(notification)">
-                    <span>  //notification.contents// </span> <span class="pull-right">date : // notification.date //  || <strong>Readed</strong></span>
+                    <span>  //notification.contents// </span> <a href=//notification.link//> link </a><span class="pull-right">date : // notification.date //  || <strong>Readed</strong></span>
                 </div>
                 <div class="alert alert-danger" role="alert" ng-if="notread(notification)" ng-click="updateNotification(notification)">
                   <span>  //notification.contents//  // notification.date //</span><strong class="pull-right">Unreaded!</strong>
                 </div>
              </span>
          </div>
-    </div>
-
-
+        </div>
+       </div>
 {% endblock %}
 

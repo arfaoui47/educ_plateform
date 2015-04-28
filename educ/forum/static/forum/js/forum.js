@@ -74,6 +74,15 @@ educ.controller('PostCtrl', function PostCtrl($scope, $log, $http, ModelUtils){
         ModelUtils.save('/api-auth/comment/', $scope.currentComment).then(function(){
             $scope.loadComment();
             $scope.currentComment = {};
+
+            var notification = {};
+            notification.contents = "You have a new Comment on your post";
+            notification.link = "/forum";
+            notification.statement = false;
+            notification.user = post.student;
+            ModelUtils.save('/api-auth/notification/', notification).then(function(){
+                notification = {};
+            });
         });
     };
 
@@ -126,6 +135,14 @@ educ.controller('PostCtrl', function PostCtrl($scope, $log, $http, ModelUtils){
             post.approval++;
             ModelUtils.save('/api-auth/post/', post).then(function () {
                 $scope.loadPost();
+                var notification = {};
+                notification.contents = "Your Post was approved";
+                notification.link = "/forum";
+                notification.statement = false;
+                notification.user = post.student;
+                ModelUtils.save('/api-auth/notification/', notification).then(function(){
+                    notification = {};
+                });
             });
         }
     }
@@ -162,6 +179,14 @@ educ.controller('PostCtrl', function PostCtrl($scope, $log, $http, ModelUtils){
             comment.appreciation++;
             ModelUtils.save('/api-auth/comment/', comment).then(function () {
                 $scope.loadComment();
+                var notification = {};
+                notification.contents = "You got new appreciation on your comment";
+                notification.link = "/forum";
+                notification.statement = false;
+                notification.user = comment.user;
+                ModelUtils.save('/api-auth/notification/', notification).then(function(){
+                    notification = {};
+                });
             });
         }
     }

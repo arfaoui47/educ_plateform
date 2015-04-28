@@ -1,9 +1,10 @@
-var educ = angular.module('educ',['ngCookies']);
+var educ = angular.module('educ',['ngCookies', 'angularModalService', 'ui.bootstrap']);
 
 educ.config(function($interpolateProvider) {
    $interpolateProvider.startSymbol('//');
    $interpolateProvider.endSymbol('//');
 });
+
 
 educ.run(function($rootScope, $log, $http, $cookies){
     $http.defaults.headers.common['X-CSRFToken'] = $cookies['csrftoken'];

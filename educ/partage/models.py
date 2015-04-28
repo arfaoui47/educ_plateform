@@ -1,6 +1,6 @@
 from django.db import models
 from authentification.models import *
-
+from django import forms
 
 class ProfessorDocs(models.Model):
     name = models.CharField(max_length=50)
