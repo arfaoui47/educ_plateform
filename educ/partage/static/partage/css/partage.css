@@ -26,3 +26,10 @@
 .modal {
     display: block;
 }
+
+.modal-vertical-centered {
+  transform: translate(0, 20%) !important;
+  -ms-transform: translate(0, 20%) !important;
+  -webkit-transform: translate(0, 20%) !important;
+}
+

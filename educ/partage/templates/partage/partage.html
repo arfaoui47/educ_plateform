@@ -92,28 +92,55 @@
                         </div>
                     </div>
                 </div>
-                <a href="td">
+                <a href="#">
                     <div class="panel-footer">
                         <span class="pull-left">//subj.name//</span>
-                        <span class="pull-right"><span class="glyphicon glyphicon-file"  aria-hidden="true"></span></span>
+                        <span class="pull-right">
+                            <span class="glyphicon glyphicon-pencil"  aria-hidden="true" ng-click="show('td', subj, fichs)" style="margin-left:5px"></span>
+                            <span class="glyphicon glyphicon-paperclip"  aria-hidden="true" ng-click="show('tp', subj, fichs)" style="margin-left:5px"></span>
+                            <span class="glyphicon glyphicon-book"  aria-hidden="true" ng-click="show('lesson', subj, fichs)" style="margin-left:5px"></span>
+                        </span>
                         <div class="clearfix"></div>
                     </div>
                 </a>
             </div>
         </div>
-            <!--<div ng-repeat="fich in fichs |filter :{professor:subj.professor}">
-                <p>//fich.name//</p>
-                <a target="_blank" href="//fich.file//">link</a>
-            </div>-->
-
     </div>
-
-     <!-- steel have a problem here -->
-     <!--
-     <a class="btn btn-default"   ng-click="show()">Show a Modal</a>
-     <p>{{message}}</p> -->
-
-
+    <script type="text/ng-template" id="modal.html">
+         <div class="modal fade">
+          <div class="modal-dialog modal-vertical-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">//type//</h4>
+              </div>
+              <div class="modal-body">
+                   <table st-table="students" class="table table-striped">
+	                        <thead>
+	                        <tr>
+	                        	<th></th>
+                                <th>name</th>
+                                <th>type</th>
+                                <th>link</th>
+	                        </tr>
+	                        </thead>
+	                        <tbody>
+	                        <tr ng-repeat="fich in fichs |filter :{professor:subj.professor, type: type}">
+                                <td>#</td>
+                                <td>//fich.name//</td>
+                                <td>//fich.type//</td>
+                                <td><a target="_blank" href="//fich.file//">link</a></td>
+	                        </tr>
+	                        </tbody>
+                        </table>
+              </div>
+              <div class="modal-footer">
+                <button type="button" ng-click="close()" class="btn btn-primary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+         </div>
+        </script>
     </div>
     </div>
     {% endif %}

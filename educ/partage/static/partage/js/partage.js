@@ -47,22 +47,30 @@ educ.controller('ParCtrl', function ($scope,$http,ModalService) {
     };
 
     //modal
-  $scope.show = function() {
+  $scope.show = function(type, subj, fichs) {
         ModalService.showModal({
-            templateUrl: '../../../templates/partage/modal.html',
-            controller: "ModalController"
+            templateUrl: 'modal.html',
+            controller: "ModalController",
+            inputs: {
+                type: type,
+                subj: subj,
+                fichs: fichs
+            }
         }).then(function(modal) {
             modal.element.modal();
-            modal.close.then(function(result) {
-                $scope.message = "You said " + result;
+            modal.close.then(function() {
+                console.log("closed");
             });
         });
     };
 
 });
 
-educ.controller('ModalController', function($scope, close) {
+educ.controller('ModalController', function($scope, close, type, subj, fichs) {
 
+ $scope.type = type;
+ $scope.subj = subj;
+ $scope.fichs = fichs;
  $scope.close = function(result) {
  	close(result, 500);
  };
