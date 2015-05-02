@@ -3,7 +3,7 @@
 <html>
 <head>
 
-    <title>forum</title>
+    <title>educ_plateform</title>
     {% block includes_css %}{% endblock %}
     <script src="{% static "js/jquery.js" %}"></script>
     <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
@@ -54,10 +54,36 @@
       </form>
       <ul class="nav navbar-nav navbar-right">
           <li>{% if user.id %}<a href="#">Welcome {{ user.username }}</a> {% endif %}</li>
-          <li ng-controller="NotificationCtrl"><a>
-              <span class="glyphicon glyphicon-bell" style="color:red; font-size: 1.5em;" ng-if="onenotread(notifications, {{ user.id }})" aria-hidden="true"></span>
-              <span class="glyphicon glyphicon-bell" style="color:green; font-size: 1.5em;" ng-if="allread(notifications, {{ user.id }})" aria-hidden="true"></span>
+          <li ng-controller="NotificationCtrl"><a href="#">
+              <span class="glyphicon glyphicon-bell" style="color:red; font-size: 1.5em;" ng-if="onenotread(notifications, {{ user.id }})" ng-click="show(notifications)" aria-hidden="true"></span>
+              <span class="glyphicon glyphicon-bell" style="color:green; font-size: 1.5em;" ng-if="allread(notifications, {{ user.id }})" ng-click="show(notifications)" aria-hidden="true"></span>
               </a>
+              <script type="text/ng-template" id="modalnotification.html">
+         <div class="modal fade">
+          <div class="modal-dialog modal-vertical-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Notifications</h4>
+              </div>
+              <div class="modal-body">
+                   <span ng-repeat="notification in notifications  | filter : { user : {{ user.id }} } | orderBy: ['statement', '-date']  | limitTo:5">
+                       <div class="alert alert-success" role="alert" ng-if="read(notification)">
+                            <span>  //notification.contents// </span><span class="pull-right">date : // notification.date // </span>
+                       </div>
+                       <div class="alert alert-danger" role="alert" ng-if="notread(notification)" ng-click="updateNotification(notification)">
+                            <span>  //notification.contents//</span><span class="pull-right">date : // notification.date // </span>
+                       </div>
+                   </span>
+              </div>
+              <div class="modal-footer">
+                <a href="/notification"><button type="button"  class="btn btn-success" >Show All</button></a>
+                <button type="button" ng-click="close()" class="btn btn-primary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+         </div>
+        </script>
           </li>
           <li>{% if user.id %}<a href="/">Log out</a>{% else %}<a href="/">Log in</a>{% endif %}</li>
       </ul>
@@ -94,7 +120,6 @@
         </div>
         <div class="col-sm-8">
         {% block content %}
-
         {% endblock %}
         </div>
         <div class="col-sm-1">

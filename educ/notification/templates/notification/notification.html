@@ -23,10 +23,10 @@
          <div class="panel-body">
              <span ng-repeat="notification in notifications  | filter : { user : {{ user.id }} } | orderBy: ['statement', '-date']">
                 <div class="alert alert-success" role="alert" ng-if="read(notification)">
-                    <span>  //notification.contents// </span> <a href=//notification.link//> link </a><span class="pull-right">date : // notification.date //  || <strong>Readed</strong></span>
+                    <span>  //notification.contents// </span> <a href=//notification.link//> link </a><span class="pull-right">date : // notification.date // </span>
                 </div>
                 <div class="alert alert-danger" role="alert" ng-if="notread(notification)" ng-click="updateNotification(notification)">
-                  <span>  //notification.contents//  // notification.date //</span><strong class="pull-right">Unreaded!</strong>
+                  <span>  //notification.contents//  // notification.date //</span><span class="pull-right">date : // notification.date // </span>
                 </div>
              </span>
          </div>

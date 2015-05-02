@@ -3,6 +3,10 @@ from rest_framework import serializers
 from forum.models import User
 from notification.models import Notification
 
+
+#ToDo: Permissions
+
+
 class UserSerializer(serializers.ModelSerializer):
 
     class Meta:

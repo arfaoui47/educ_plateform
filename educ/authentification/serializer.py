@@ -2,6 +2,9 @@ from rest_framework import serializers
 from authentification.models import *
 
 
+#ToDo: Permissions
+
+
 class UsersSerializer(serializers.ModelSerializer):
 
     class Meta:

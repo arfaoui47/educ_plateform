@@ -1,4 +1,4 @@
-educ.controller('NotificationCtrl', function NotificationCtrl($scope, $log, $http, ModelUtils){
+educ.controller('NotificationCtrl', function NotificationCtrl($scope, $log, $http, ModelUtils, ModalService){
 
 
     $scope.loadNotification = function(){
@@ -71,4 +71,50 @@ educ.controller('NotificationCtrl', function NotificationCtrl($scope, $log, $htt
         }
         return 1;
     };
+
+
+
+    //modal
+     $scope.show = function(notifications) {
+        ModalService.showModal({
+            templateUrl: 'modalnotification.html',
+            controller: "ModalNotificationController",
+            inputs: {
+                notifications : notifications
+            }
+
+        }).then(function(modal) {
+            modal.element.modal();
+            modal.close.then(function() {
+                console.log("closed");
+            });
+        });
+    };
+
+});
+
+educ.controller('ModalNotificationController', function($scope, close, notifications) {
+
+ $scope.notifications = notifications;
+    $scope.read = function(notification){
+        if(notification.statement == true){
+            return 1;
+        }
+        else{
+            return 0;
+        }
+    };
+
+    $scope.notread = function(notification){
+        if(notification.statement == true){
+            return 0;
+        }
+        else{
+            return 1;
+        }
+    };
+ $scope.close = function(result) {
+ 	close(result, 500);
+ };
+
 });

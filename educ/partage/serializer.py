@@ -3,6 +3,10 @@ from rest_framework import serializers
 from partage.models import *
 from authentification.models import *
 
+
+#ToDo: Permissions
+
+
 class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
