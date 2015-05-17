@@ -50,7 +50,7 @@
             <span class="pull-right">You have //fichs.length// Files</span>
     </div>
     <div class="panel-body">
-        <div  ng-repeat="fich in fichs">
+        <div  ng-repeat="fich in fichs| filter :{professor: {{ user.id }}}">
             <div class="col-xs-3">
                     <span class="glyphicon glyphicon-pencil glyphicon-xlg" ng-if="istd(fich)" aria-hidden="true"></span>
                     <span class="glyphicon glyphicon-paperclip glyphicon-xlg" ng-if="istp(fich)" aria-hidden="true"></span>

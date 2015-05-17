@@ -19,6 +19,8 @@
     <script src=" http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.6.0.js"></script>
     <script src="{% static "js/crud.js" %}"></script>
     <script src="{% static "notification/js/notification.js" %}"></script>
+    <script src="{% static "notes/js/notes.js" %}"></script>
+    <script src="{% static "partage/js/partage.js" %}"></script>
 
     {% block includes_js %}{% endblock %}
 
@@ -94,27 +96,51 @@
     <div class="row">
         <div class="col-sm-3">
 
-          <div class="list-group">
+          <div class="list-group" ng-controller="NotesCtrl">
             <a href="/Notes" class="list-group-item active">
               Last Marks
             </a>
             {% if user.cin %}
-            <a href="#" class="list-group-item">II2b : Validated</a>
-            <a href="#" class="list-group-item">II2a : Unvalidated</a>
+            <div>
+                <span ng-repeat="subject in subjects | filter: { professor : {{ user.id }} }">
+                        <table st-table="students" class="table table-striped">
+	                        <thead>
+	                        <tr>
+	                        	<th>Student</th>
+                                <th>Class</th>
+                                <th>Note</th>
+	                        </tr>
+	                        </thead>
+	                        <tbody>
+	                        <tr ng-repeat="student in students | filter: { classroom : subject.classroom } | limitTo:3">
+                                <td>//student.username//</td>
+                                <td><span ng-repeat="classroom in classrooms |filter: {id: subject.classroom }">
+                                        //classroom.class_name//
+                                    </span>
+                                </td>
+                                <td ng-repeat="note in notes | filter : { student : student.id} |  limitTo:1">//note.note//</td>
+
+	                        </tr>
+	                        </tbody>
+                        </table>
+                        <br>
+                </span>
+            </div>
             {%  else %}
-            <a href="#" class="list-group-item">Exam Algorithm : 15</a>
-            <a href="#" class="list-group-item">Exam Managment : 4</a>
+            <a ng-repeat="note in notes | filter : { student : {{ user.id }}} |  limitTo:5" class="list-group-item">
+                <span ng-repeat="subject in subjects | orderBy: ['-date']|filter : {professor: note.professor, classroom: {{ user.classroom.id }}}">
+                    //subject.name// - //note.note//
+                </span>
+
+            </a>
             {% endif %}
           </div>
 
-          <div class="list-group">
+          <div class="list-group" ng-controller="ParCtrl">
             <a href="/uploads" class="list-group-item active">
               Last Docs
             </a>
-            <a href="#" class="list-group-item">TD : Algorithm</a>
-            <a href="#" class="list-group-item">TP : Algorithm</a>
-            <a href="#" class="list-group-item">Lesson :  Algorithm</a>
-            <a href="#" class="list-group-item">TP : Algorithm</a>
+            <a ng-repeat="fich in fichs|orderBy: ['-date']| limitTo:5 " target="_blank" href="//fich.file//" class="list-group-item">//fich.name// - //fich.classroom// - //fich.type//</a>
           </div>
 
         </div>
@@ -123,14 +149,14 @@
         {% endblock %}
         </div>
         <div class="col-sm-1">
-            <span class="glyphicon glyphicon-comment glyphicon-lg"  style="color:{% block color_forum %} {% endblock %}" aria-hidden="true"></span><br>
-            <hr>
-            <span class="glyphicon glyphicon-signal glyphicon-lg" style="color:{% block color_notes %} {% endblock %}" aria-hidden="true"></span><br>
-            <hr>
-            <span class="glyphicon glyphicon-education glyphicon-lg" style="color:{% block color_uploads %} {% endblock %}" aria-hidden="true"></span><br>
-            <hr>
-            <span class="glyphicon glyphicon-calendar glyphicon-lg" style="color:{% block color_calendar %} {% endblock %}" aria-hidden="true"></span><br>
-            <hr>
+            <a href="/forum" style="color:#424242"><span class="glyphicon glyphicon-comment glyphicon-lg" href="/forum" style="color:{% block color_forum %} {% endblock %}" aria-hidden="true"></span><br>
+            </a><hr>
+            <a href="/notes" style="color:#424242"><span class="glyphicon glyphicon-signal glyphicon-lg" href="/notes" style="color:{% block color_notes %} {% endblock %}" aria-hidden="true"></span><br>
+            </a><hr>
+            <a href="/uploads" style="color:#424242"><span class="glyphicon glyphicon-education glyphicon-lg" href="/uploads" style="color:{% block color_uploads %} {% endblock %}" aria-hidden="true"></span><br>
+            </a><hr>
+            <a href="/calender" style="color:#424242"><span class="glyphicon glyphicon-calendar glyphicon-lg" href="/calendar" style="color:{% block color_calendar %} {% endblock %}" aria-hidden="true"></span><br>
+            </a><hr>
             <span class="glyphicon glyphicon-envelope glyphicon-lg" style="color:{% block color_messages %} {% endblock %}" aria-hidden="true"></span><br>
             <hr>
         </div>

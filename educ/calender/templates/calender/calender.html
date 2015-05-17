@@ -13,6 +13,11 @@
 
 
 {% block content %}
+    <div class="panel panel-primary">
+                 <div class="panel-heading">
+                 Calendar
+                 </div>
+        <div class="panel-body">
     <div dhx-scheduler style="height:600px; width:800px;">
         <div class="dhx_cal_prev_button">&nbsp;</div>
         <div class="dhx_cal_next_button">&nbsp;</div>
@@ -22,5 +27,7 @@
         <div class="dhx_cal_tab" name="week_tab" style="right:140px;"></div>
         <div class="dhx_cal_tab" name="month_tab" style="right:76px;"></div>
     </div>
-
+        </div>
+    </div>
 {% endblock %}
+{% block color_calendar %} #2f72ab {% endblock %}
